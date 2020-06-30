@@ -7,7 +7,7 @@ const db = require('./db')
 const routes = require('./routes')
 
 const app = express()
-app.use(bodyParser.json({ limit: '50mb', type: 'application/json' }))
+app.use(bodyParser.json({ limit: '10mb', type: 'application/json' }))
 app.use(morgan('dev'))
 app.use(cors())
  
