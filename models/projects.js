@@ -21,7 +21,7 @@ const Entry = new Schema({
   timestamps: true
 })
 
-const Entry = new Schema({
+const Image = new Schema({
   url: { type: String, required: true },
   altUrl: { type: String, required: false }
 },
