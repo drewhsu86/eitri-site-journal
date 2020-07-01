@@ -136,9 +136,15 @@ async function signUp(req, res) {
 async function getProjects(req, res) {
   try {
     const userID = req.params.id
-    const projects = await Project.find({user: userID})
+    const user = await User.findById(userID).populate('projects')
 
-    res.json(projects)
+    const filteredUser = {
+      username: user.username,
+      userID: user.id,
+      projects: user.projects 
+    }
+
+    res.json(filteredUser)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

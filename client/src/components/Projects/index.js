@@ -7,6 +7,7 @@ class Index extends Component {
     super(props)
 
     this.state = {
+      user: null,
       projects: null,
       errMsg: ''
     }
@@ -17,10 +18,9 @@ class Index extends Component {
     if (userID) {
       try {
         const response = await getProjects(userID)
-        console.log('projects for this user', response)
-
         this.setState({
-          projects: response 
+          user: response,
+          projects: response.projects 
         })
       } catch (error) {
         console.log(error.message)
@@ -36,10 +36,9 @@ class Index extends Component {
       return (
         <div className="Page">
           <h1> List of Projects </h1>
-          {
-            this.state.projects.map(projID => {
+          { this.state.projects.length > 0 ? this.state.projects.map(projID => {
               return <Link to={`/projects/${projID}`}> Go to Project </Link>
-            })
+            }) : <h3>You have no projects yet.</h3>
           }
         </div>
       )
