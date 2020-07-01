@@ -47,7 +47,7 @@ router.delete("/projects/:id", restrict, (req, res) => controllers.deleteProject
 // ==========
 
 //get all entrys for a project
-router.get("/project/:id/entries", (req, res) => controllers.getEntries(req, res))
+router.get("/projects/:id/entries", (req, res) => controllers.getEntries(req, res))
 
 //get one entry
 router.get("/entries/:id", (req, res) => controllers.getEntry(req, res))
@@ -60,5 +60,11 @@ router.put("/entries/:id", restrict, (req, res) => controllers.editEntry(req, re
 
 //delete one entry 
 router.delete("/entries/:id", restrict, (req, res) => controllers.deleteEntry(req, res))
+
+//add one image to an entry 
+router.put("/entries/:id/image", restrict, (req, res) => controllers.addImage(req, res))
+
+//remove one image to an entry 
+router.delete("/entries/:id/image/:imgInd", restrict, (req, res) => controllers.removeImage(req, res))
 
 module.exports = router

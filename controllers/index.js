@@ -3,7 +3,7 @@ const axios = require('axios')
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const User = require("../models/users")
-const { Project, Image, Entry } = require("../models/projects")
+const { Project, Entry } = require("../models/projects")
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -332,6 +332,40 @@ async function deleteEntry(req, res) {
 
 // ===============================
 // 
+//  IMAGE -> URL PART OF ENTRY 
+// 
+// ===============================
+
+// PUT REQUEST TO ADD A URL TO AN ENTRY 
+async function addImage(req, res) {
+  try {
+    const id = req.params.id
+    const entry = await Entry.findById(id)
+    entry.images.push(req.body.imageURL)
+    await entry.save()
+
+    res.json(entry)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
+// DELETE REQUEST TO REMOVE A URL TO AN ENTRY 
+async function removeImage(req, res) {
+  try {
+    const id = req.params.id
+    const entry = await Entry.findById(id)
+    entry.images.splice(parseInt(req.params.imgInd), 1)
+    await entry.save()
+
+    res.json(entry)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
+// ===============================
+// 
 //  NON-ROUTE FUNCTIONS
 // 
 // ===============================
@@ -358,5 +392,6 @@ module.exports = {
   getProjects, getProject, createProject, 
   editProject, deleteProject,
   getEntries, getEntry,
-  createEntry, editEntry, deleteEntry
+  createEntry, editEntry, deleteEntry,
+  addImage, removeImage
 }

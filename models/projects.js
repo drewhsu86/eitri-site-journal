@@ -15,22 +15,14 @@ const Project = new Schema({
 const Entry = new Schema({
   notes: { type: String, required: false },
   project: { type: Schema.Types.ObjectId, ref: 'projects'},
-  images: [{ type: Schema.Types.ObjectId, ref: 'images' }]
+  images: [{ type: String }]
 },
 {
   timestamps: true
 })
 
-const Image = new Schema({
-  url: { type: String, required: true },
-  altUrl: { type: String, required: false }
-},
-{
-  timestamps: true
-})
 
 module.exports = {
   Project: mongoose.model("projects", Project),
-  Entry: mongoose.model("entries", Entry),
-  Image: mongoose.model("images", Image),
+  Entry: mongoose.model("entries", Entry)
 }
