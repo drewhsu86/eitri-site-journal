@@ -43,7 +43,7 @@ export default class Upload extends Component {
 
   render() {
     return (
-      <div className="upload">
+      <div className="Upload">
         <FileBase64
           multiple={false}
           onDone={this.setFile}

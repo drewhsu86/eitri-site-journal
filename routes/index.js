@@ -28,7 +28,7 @@ router.get('/verifyuser', (req, res) => controllers.verifyUser(req, res))
 // ==========
 
 //get all projects for a user 
-router.get("/user/:id", (req, res) => controllers.getProjects(req, res))
+router.get("/users/:id", (req, res) => controllers.getProjects(req, res))
 
 //get one project
 router.get("/projects/:id", (req, res) => controllers.getProject(req, res))
