@@ -3,9 +3,11 @@ import './App.css'
 import { Route, withRouter } from 'react-router-dom'
 import { verifyuser } from './services/apiUsers'
 
+import Nav from './components/Nav'
 import Signup from './components/User/Signup'
 import Signin from './components/User/Signin'
-import Logout from './components/User/Logout'
+import Projects from './components/Projects'
+import ProjectRedirect from './components/Projects/ProjectRedirect'
 
 class App extends Component {
   constructor() {
@@ -26,8 +28,8 @@ class App extends Component {
 
   setUser = async () => {
     try {
-      const response = verifyuser()
-      console.log(response)
+      const response = await verifyuser()
+
       this.setState({
         username: response.username,
         userID: response.id 
@@ -57,18 +59,18 @@ class App extends Component {
     return (
       <div className="App">
         
-        <nav>Nav Bar</nav>
+        <Nav username={this.state.username} logOut={this.logOut} />
 
         <Route path="/" exact>
-          {this.state.username !== null && this.state.userID !== null ? <Logout logOut={this.logOut} /> : <Signin setUser={this.setUser} />}
+          {this.state.username !== null && this.state.userID !== null ? <ProjectRedirect userID={this.state.userID} /> : <Signin setUser={this.setUser} />}
         </Route>
 
         <Route path="/signup" exact>
           <Signup setUser={this.setUser} />
         </Route>
 
-        <Route path="/dashboard">
-          <h1>Dashboard</h1>
+        <Route path="/users/:id">
+          <Projects />
         </Route>
 
       </div>

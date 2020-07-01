@@ -3,7 +3,6 @@ import axios from 'axios'
 const getToken = () => {
 
   return new Promise(resolve => {
-    console.log('apiConfig token: ', localStorage.getItem('token'))
     resolve(`Bearer ${localStorage.getItem('token') || null}`)
   })
 
@@ -28,7 +27,6 @@ const api = axios.create({
 
 api.interceptors.request.use(async function (options) {
   options.headers['Authorization'] = await getToken()
-  options.headers['Access-Control-Allow-Origin'] = '*'
   return options
 }, function (error) {
   console.log('Request error: ', error)
