@@ -10,6 +10,10 @@ router.get('/')
 // limit of 10mb image 
 router.post('/imgur/upload', (req, res) => controllers.uploadToImgur(req, res))
 
+// ==========
+//  USER
+// ==========
+
 //sign-in
 router.post("/signin", (req, res) => controllers.signIn(req, res))
 
@@ -18,6 +22,10 @@ router.post("/signup", (req, res) => controllers.signUp(req, res))
 
 //verify user
 router.get('/verifyuser', (req, res) => controllers.verifyUser(req, res))
+
+// ==========
+//  Project
+// ==========
 
 //get all projects for a user 
 router.get("/user/:id", (req, res) => controllers.getProjects(req, res))
@@ -34,6 +42,23 @@ router.put("/projects/:id", restrict, (req, res) => controllers.editProject(req,
 //delete one project 
 router.delete("/projects/:id", restrict, (req, res) => controllers.deleteProject(req, res))
 
+// ==========
+//  ENTRY
+// ==========
 
+//get all entrys for a project
+router.get("/project/:id/entries", (req, res) => controllers.getEntries(req, res))
+
+//get one entry
+router.get("/entries/:id", (req, res) => controllers.getEntry(req, res))
+
+//add one entry
+router.post("/entries", restrict, (req, res) => controllers.createEntry(req, res))
+
+//edit one entry 
+router.put("/entries/:id", restrict, (req, res) => controllers.editEntry(req, res))
+
+//delete one entry 
+router.delete("/entries/:id", restrict, (req, res) => controllers.deleteEntry(req, res))
 
 module.exports = router

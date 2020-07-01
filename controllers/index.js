@@ -55,6 +55,11 @@ async function uploadToImgur(req, res) {
   }
 }
 
+// ===============================
+// 
+//  USER - signup, signin, verify
+// 
+// ===============================
 
 //verify user
 const verifyUser = async (req, res) => {
@@ -119,6 +124,12 @@ async function signUp(req, res) {
     return res.status(400).json({ error: error.message })
   }
 }
+
+// ===============================
+// 
+//  PROJECT - 5 CRUD 
+// 
+// ===============================
 
 // Get all project of a user id 
 // user/id
@@ -216,8 +227,115 @@ async function deleteProject(req, res) {
   }
 }
 
+// ===============================
+// 
+//  ENTRY - 5 CRUD 
+// 
+// ===============================
 
-// non-controller functions 
+// Get all entries of a user id 
+// user/id
+async function getEntries(req, res) {
+  try {
+    const projectID = req.params.id
+    const entries = await Entry.find({project: projectID})
+
+    res.json(entries)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
+//Get a entry
+async function getEntry(req, res) {
+  try {
+    const id = req.params.id
+    const entry = await Entry.findById(id)
+
+    res.json(entry)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
+//Create a entry
+async function createEntry(req, res) {
+  try {
+    const entry = await new Entry({
+      ...req.body,
+      images: []
+    })
+    await entry.save()
+
+    // also add this entry to the user 
+    const currProject = await Project.findById(req.body.project)
+    currProject.entries.push(entry['_id'])
+    currProject.save()
+
+    res.status(201).json(entry)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
+//Edit a entry
+async function editEntry(req, res) {
+  try {
+    const userID = getUserID(req)
+
+    await Entry.findByIdAndUpdate(req.params.id, req.body, { new: true }, async (error, entry) => {
+      if (error) {
+        return res.status(500).json({ error: error.message })
+      }
+      if (!entry) {
+        return res.status(404).json({ message: "Entry not found!" })
+      }
+
+      const project = await Project.findById(entry.project)
+
+      if (userID.toString() !== project.user.toString()) {
+        console.log(entry.user)
+        console.log(userID)
+        return res.status(401).json({ message: "Entry does not belong to user!" })
+      }
+      res.status(200).json(entry)
+    })
+
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
+//delete a entry
+async function deleteEntry(req, res) {
+  try {
+    const userID = getUserID(req)
+
+    const entry = await Entry.findById(req.params.id).populate('project')
+
+    if (userID.toString() !== entry.project.user.toString()) {
+      return res.status(401).json({ message: "Entry does not belong to user!" })
+    }
+
+    const deleted = await Entry.findByIdAndDelete(req.params.id)
+
+    if (deleted) {
+      return res.status(200).send("Entry deleted!")
+    }
+    throw new Error("Entry not found!")
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    })
+  }
+}
+
+// ===============================
+// 
+//  NON-ROUTE FUNCTIONS
+// 
+// ===============================
+
 // function that returns userID from token in request
 function getUserID(req) {
   try {
@@ -238,5 +356,7 @@ module.exports = {
   uploadToImgur,
   signIn, signUp, verifyUser,
   getProjects, getProject, createProject, 
-  editProject, deleteProject
+  editProject, deleteProject,
+  getEntries, getEntry,
+  createEntry, editEntry, deleteEntry
 }
