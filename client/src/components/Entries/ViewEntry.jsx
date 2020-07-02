@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { withRouter, Link } from 'react-router-dom'
-import { getEntry } from '../../services/apiCalls'
+import { withRouter } from 'react-router-dom'
+import { getEntry, removeImage } from '../../services/apiCalls'
 import AddImage from './AddImage'
 
 class ViewEntry extends Component {
@@ -35,6 +35,15 @@ class ViewEntry extends Component {
     this.setState({
       addImg
     })
+  }
+
+  handleRemoveImg = async (id, ind) => {
+    try {
+      await removeImage(id, ind)
+      await this.initialize()
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   render() {
@@ -73,9 +82,18 @@ class ViewEntry extends Component {
             {
               entry.images.map((image, ind) => {
                 return (<li key={ind}>
-                  <a href={image} target="_blank">
-                    {image}
-                  </a>
+                  <div className="ImageHolder">
+                    <a href={image} target="_blank">
+                    <img className="ImagePreview"
+                      src={image} alt={`This is a link to an image.`} />
+                    </a>
+                    <button
+                      className="ImageRemoveButton"
+                      onClick={() => this.handleRemoveImg(this.props.match.params.id, ind)}
+                    >
+                      Delete Image?
+                    </button>
+                  </div>
                 </li>)
               })
             }
