@@ -34,18 +34,26 @@ class Index extends Component {
   render() {
     if (this.state.projects) {
       return (
-        <div className="Page">
+        <div className="Page"> 
+          
+          {
+            this.props.userID === this.props.match.params.id ? <h1><Link to="/addProject">Add A Project</Link></h1> : null 
+            }
+          
           <h1> List of Projects </h1>
-          { this.state.projects.length > 0 ? this.state.projects.map(projID => {
-              return <Link to={`/projects/${projID}`}> Go to Project </Link>
+          <ul>
+          { this.state.projects.length > 0 ? this.state.projects.map((proj, ind) => {
+            return <li key={ind}><Link to={`/projects/${proj._id}`}> Go to Project: {proj.name} </Link></li>
             }) : <h3>You have no projects yet.</h3>
-          }
+            }
+          </ul>
+          
         </div>
       )
     } else {
       return (
         <div className="Page">
-          <h1>User not found</h1>
+          <h1>User Info not found</h1>
         </div>
       )
     }

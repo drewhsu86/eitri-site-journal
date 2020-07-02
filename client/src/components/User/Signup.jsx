@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { signup } from '../../services/apiUsers'
 
 export default class Signup extends Component {
@@ -66,13 +66,16 @@ export default class Signup extends Component {
             {this.state.errMsg ? <p className="error">{this.state.errMsg}</p> : null}
 
             <label htmlFor="username">Username</label>
-            <input type="text" value={this.state.inputUsername} onChange={e => this.handleChange(e, 'inputUsername')} />
+            <input type="text" value={this.state.inputUsername} onChange={e => this.handleChange(e, 'inputUsername')} name="uesrname" />
 
             <label htmlFor="password">Password</label>
-            <input type="password" value={this.state.inputPassword} onChange={e => this.handleChange(e, 'inputPassword')} />
+            <input type="password" value={this.state.inputPassword} onChange={e => this.handleChange(e, 'inputPassword')} name="password" />
 
             <button> Submit </button>
           </form>
+          <p>
+            <Link to="/">Have an account? Log in here</Link>
+          </p>
         </div>
       )
     

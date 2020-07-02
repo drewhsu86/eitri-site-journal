@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import './App.css'
-import { Route, withRouter } from 'react-router-dom'
+import { Route, withRouter, Redirect } from 'react-router-dom'
 import { verifyuser } from './services/apiUsers'
 
 import Nav from './components/Nav'
 import Signup from './components/User/Signup'
 import Signin from './components/User/Signin'
 import Projects from './components/Projects'
-import ProjectRedirect from './components/Projects/ProjectRedirect'
+import AddProject from './components/Projects/AddProject'
+import ViewProject from './components/Projects/ViewProject'
+import AddEntry from './components/Entries/AddEntry'
+import ViewEntry from './components/Entries/ViewEntry'
 
 class App extends Component {
   constructor() {
@@ -62,7 +65,7 @@ class App extends Component {
         <Nav username={this.state.username} logOut={this.logOut} />
 
         <Route path="/" exact>
-          {this.state.username !== null && this.state.userID !== null ? <ProjectRedirect userID={this.state.userID} /> : <Signin setUser={this.setUser} />}
+          {this.state.username !== null && this.state.userID !== null ? <Redirect to={`/users/${this.state.userID}`} /> : <Signin setUser={this.setUser} />}
         </Route>
 
         <Route path="/signup" exact>
@@ -70,7 +73,23 @@ class App extends Component {
         </Route>
 
         <Route path="/users/:id">
-          <Projects />
+          <Projects userID={this.state.userID} />
+        </Route>
+
+        <Route path="/addproject">
+          <AddProject />
+        </Route>
+
+        <Route path="/projects/:id" exact>
+          <ViewProject userID={this.state.userID} />
+        </Route>
+
+        <Route path="/projects/:id/addentry" exact>
+          <AddEntry userID={this.state.userID} />
+        </Route>
+
+        <Route path="/entries/:id" exact>
+          <ViewEntry userID={this.state.userID} />
         </Route>
 
       </div>

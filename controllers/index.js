@@ -154,7 +154,7 @@ async function getProjects(req, res) {
 async function getProject(req, res) {
   try {
     const id = req.params.id
-    const project = await Project.findById(id)
+    const project = await await Project.findById(id).populate('entries')
 
     res.json(project)
   } catch (error) {
@@ -256,8 +256,11 @@ async function getEntries(req, res) {
 async function getEntry(req, res) {
   try {
     const id = req.params.id
-    const entry = await Entry.findById(id)
+    const entry = await Entry.findById(id).populate('project')
 
+    entry.project.entries = null 
+
+    console.log(entry)
     res.json(entry)
   } catch (error) {
     res.status(500).json({ error: error.message })
@@ -267,6 +270,8 @@ async function getEntry(req, res) {
 //Create a entry
 async function createEntry(req, res) {
   try {
+    const userID = getUserID(req)
+    
     const entry = await new Entry({
       ...req.body,
       images: []

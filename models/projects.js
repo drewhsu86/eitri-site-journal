@@ -14,7 +14,7 @@ const Project = new Schema({
 
 const Entry = new Schema({
   notes: { type: String, required: false },
-  project: { type: Schema.Types.ObjectId, ref: 'projects'},
+  project: { type: Schema.Types.ObjectId, ref: 'projects' },
   images: [{ type: String }]
 },
 {
