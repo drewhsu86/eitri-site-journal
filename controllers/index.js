@@ -38,8 +38,8 @@ async function uploadToImgur(req, res) {
     const newBody = {
       image: base64,
       name: name,
-      title: 'dummy title',
-      description: 'dummy desc',
+      title: name,
+      description: name,
       type: 'base64'
     }
 

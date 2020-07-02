@@ -3,6 +3,7 @@ import './App.css'
 import { Route, withRouter, Redirect } from 'react-router-dom'
 import { verifyuser } from './services/apiUsers'
 
+import Upload from './components/Upload'
 import Nav from './components/Nav'
 import Signup from './components/User/Signup'
 import Signin from './components/User/Signin'
@@ -66,6 +67,10 @@ class App extends Component {
 
         <Route path="/" exact>
           {this.state.username !== null && this.state.userID !== null ? <Redirect to={`/users/${this.state.userID}`} /> : <Signin setUser={this.setUser} />}
+        </Route>
+
+        <Route path="/uploadTest" exact>
+          <Upload />
         </Route>
 
         <Route path="/signup" exact>

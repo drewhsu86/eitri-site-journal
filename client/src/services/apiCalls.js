@@ -48,6 +48,7 @@ export const deleteProject = async id => {
 }
 
 // ===== Entries ======
+
 export const getEntries = async userID => {
   try {
       const response = await api.get(`/projects/${userID}/entries`)
@@ -87,6 +88,35 @@ export const updateEntry = async (id, entry) => {
 export const deleteEntry = async id => {
   try {
       const response = await api.delete(`/entries/${id}`)
+      return response.data
+  } catch (error) {
+      throw error
+  }
+}
+
+// ===== Images ======
+
+export const imgurImage = async file => {
+  try {
+      const response = await api.post(`/imgur/upload`, file)
+      return response.data
+  } catch (error) {
+      throw error
+  }
+}
+
+export const addImage = async (id, imageURL) => {
+  try {
+      const response = await api.put(`/entries/${id}/image`, { imageURL })
+      return response.data
+  } catch (error) {
+      throw error
+  }
+}
+
+export const removeImage = async (id, imgInd) => {
+  try {
+      const response = await api.delete(`/entries/${id}/image/${imgInd}`)
       return response.data
   } catch (error) {
       throw error

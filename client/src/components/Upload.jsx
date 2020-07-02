@@ -56,8 +56,8 @@ export default class Upload extends Component {
         }
         {
           <ul>
-            {this.state.images.map(imageURL => {
-              return <li><a href={imageURL} target="_blank">{imageURL}</a></li>
+            {this.state.images.map((imageURL, ind) => {
+              return <li key={ind}><a href={imageURL} target="_blank">{imageURL}</a></li>
             })}
           </ul>
         }
