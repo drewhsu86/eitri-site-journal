@@ -38,7 +38,7 @@ class AddProject extends Component {
           description: this.state.inputDescription 
         })
 
-        this.props.history.push('/')
+        this.props.history.push(`/projects/${response._id}`)
       } catch (error) {
         console.log(error.message)
         this.setState({

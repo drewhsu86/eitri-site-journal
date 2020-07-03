@@ -33,7 +33,7 @@ class AddEntry extends Component {
           project: this.props.match.params.id 
         })
 
-        this.props.history.push(`/projects/${this.props.match.params.id}`)
+        this.props.history.push(`/entries/${response._id}`)
       } catch (error) {
         console.log(error.message)
         this.setState({

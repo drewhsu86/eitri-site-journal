@@ -10,10 +10,10 @@ export default class AddImage extends Component {
     super(props)
 
     this.state = {
-      imgFile: null,
       inputURL: '',
       errMsg: '',
-      imgurBtn: IMGUR_BUTTON
+      imgurBtn: IMGUR_BUTTON,
+      camFile: null 
     }
   }
 
@@ -24,17 +24,29 @@ export default class AddImage extends Component {
     })
   }
 
-  handleImgur = async (file) => {
+  // convert file to base64 
+  // from: https://stackoverflow.com/questions/36280818/how-to-convert-file-to-base64-in-javascript
+  toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+
+  handleImgur = async (e) => {
     if (this.state.imgurBtn === IMGUR_BUTTON) {
       // change the button state and then api call 
       this.setState({
-        imgurBtn: IMGUR_LOADING,
-        imgFile: file 
+        imgurBtn: IMGUR_LOADING 
       })
       try {
+
+        const file = e.target.files[0]
+        const fileBase64 = await this.toBase64(file)
+
         const response = await imgurImage({
-          base64: file.base64.split(',')[1],
-          name: file.file.name 
+          base64: fileBase64.split(',')[1],
+          name: file.name 
         })
 
         console.log(response)
@@ -44,7 +56,6 @@ export default class AddImage extends Component {
         console.log(addResponse)
 
         this.setState({
-          imgFile: null,
           errMsg: 'Imgur Upload Successful',
           imgurBtn: IMGUR_BUTTON,
           inputURL: ''
@@ -54,7 +65,6 @@ export default class AddImage extends Component {
       } catch (error) {
         console.log(error.message)
         this.setState({
-          imgFile: null,
           errMsg: error.message,
           imgurBtn: IMGUR_BUTTON
         })
@@ -85,10 +95,8 @@ export default class AddImage extends Component {
           this.state.errMsg ? <h4>{this.state.errMsg}</h4> : null 
         }
 
-        <FileBase64
-          multiple={false}
-          onDone={this.handleImgur}
-        />
+        <label htmlFor="inputFile">From Files Or Camera</label>
+        <input type="file" accept="image/*" capture="camera" onChange={this.handleImgur} name="inputFile" />
 
         <label htmlFor="inputURL">Enter Or Edit Image URL</label>
         <input 

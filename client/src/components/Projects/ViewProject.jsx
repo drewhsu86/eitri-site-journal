@@ -59,7 +59,10 @@ class ViewProject extends Component {
               project.entries.map((entry, ind) => {
                 return (<li key={ind}>
                   <Link to={`/entries/${entry._id}`}>
-                    <div className="toEntry">{entry.notes}</div>
+                    <div className="toEntry">
+                      <p>{entry.notes}</p>
+                      <p>Created At: {entry.createdAt.slice(0, 10)}</p>
+                    </div>
                   </Link>
                 </li>)
               })

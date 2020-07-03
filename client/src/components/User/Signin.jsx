@@ -35,8 +35,6 @@ class Signin extends Component {
           password: this.state.inputPassword
         })
 
-        console.log(response)
-
         // if token is successfully received, set the user data 
         await this.props.setUser()
 
