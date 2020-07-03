@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { createProject } from '../../services/apiCalls'
+import { getProject, updateProject, deleteProject } from '../../services/apiCalls'
 
-class AddProject extends Component {
+const confirm = window.confirm
+
+class EditProject extends Component {
   constructor(props) {
     super(props)
 
@@ -15,6 +17,21 @@ class AddProject extends Component {
   }
 
   // name required, location and description not required 
+  async componentDidMount() {
+    try {
+      const response = await getProject(this.props.match.params.id)
+      this.setState({
+        inputName: response.name,
+        inputLocation: response.location,
+        inputDescription: response.description 
+      })
+    } catch (error) {
+      console.log(error.message)
+      this.setState({
+        errMsg: error.message 
+      })
+    }
+  }
 
   handleChange = (e, stateName) => {
     // sets e.target.value to whatever state is named
@@ -32,18 +49,41 @@ class AddProject extends Component {
       })
     } else {
       try {
-        const response = await createProject({
+        const response = await updateProject(this.props.match.params.id,{
           name: this.state.inputName,
           location: this.state.inputLocation,
           description: this.state.inputDescription 
         })
 
-        this.props.history.push('/')
+        this.props.history.push(`/projects/${this.props.match.params.id}`)
       } catch (error) {
         console.log(error.message)
         this.setState({
           errMsg: error.message 
         })
+      }
+    }
+  }
+
+  handleDelete = async () => {
+    const confirm1 = confirm('Do you want to delete this project? WARNING: PERMANENT!!!')
+    
+    if (confirm1) {
+      const confirm2 = confirm('FINAL WARNING: DELETION PERMANENT! PROCEED?!?')
+
+      if (confirm2) {
+        try {
+          const response = await deleteProject(this.props.match.params.id)
+
+          console.log(response)
+
+          this.props.history.push('/')
+        } catch (error) {
+          console.log(error.message) 
+          this.setState({
+            errMsg: error.message 
+          })
+        }
       }
     }
   }
@@ -63,9 +103,12 @@ class AddProject extends Component {
 
           <button>Submit</button>
         </form>
+
+        <h1> Delete this entry? </h1>
+        <button onClick={this.handleDelete}>Delete (PERMANENT)</button>
       </div>
     )
   }
 }
 
-export default withRouter(AddProject)
+export default withRouter(EditProject)

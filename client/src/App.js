@@ -10,8 +10,10 @@ import Signin from './components/User/Signin'
 import Projects from './components/Projects'
 import AddProject from './components/Projects/AddProject'
 import ViewProject from './components/Projects/ViewProject'
+import EditProject from './components/Projects/EditProject'
 import AddEntry from './components/Entries/AddEntry'
 import ViewEntry from './components/Entries/ViewEntry'
+import EditEntry from './components/Entries/EditEntry'
 
 class App extends Component {
   constructor() {
@@ -93,8 +95,16 @@ class App extends Component {
           <AddEntry userID={this.state.userID} />
         </Route>
 
+        <Route path="/projects/:id/editproject" exact>
+          <EditProject userID={this.state.userID} />
+        </Route>
+
         <Route path="/entries/:id" exact>
           <ViewEntry userID={this.state.userID} />
+        </Route>
+
+        <Route path="/entries/:id/editentry" exact>
+          <EditEntry userID={this.state.userID} />
         </Route>
 
       </div>

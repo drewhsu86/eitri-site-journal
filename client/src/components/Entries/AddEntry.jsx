@@ -12,8 +12,6 @@ class AddEntry extends Component {
     }
   }
 
-  // name required, location and description not required 
-
   handleChange = (e, stateName) => {
     // sets e.target.value to whatever state is named
     this.setState({
@@ -23,8 +21,6 @@ class AddEntry extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault()
-
-    console.log('submit')
 
     if (!this.state.inputNotes) {
       this.setState({

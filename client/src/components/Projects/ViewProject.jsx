@@ -41,7 +41,13 @@ class ViewProject extends Component {
             project.description ? <div><h4>Description</h4><p>{project.description}</p></div> : null  
           }
 
-          { this.props.userID === project.user ? <Link to={`/projects/${this.props.match.params.id}/addentry`}><h2>Create An Entry</h2></Link> : null }
+{
+          this.props.userID === project.user ? (
+            <Link to={`/projects/${this.props.match.params.id}/editproject`}><button>Edit Project Info</button></Link>
+            ) : null 
+          }
+
+          { this.props.userID === project.user ? <Link to={`/projects/${this.props.match.params.id}/addentry`}><button>Create An Entry</button></Link> : null }
 
           <ul>
             {

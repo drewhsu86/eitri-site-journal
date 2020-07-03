@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { getEntry, removeImage } from '../../services/apiCalls'
 import AddImage from './AddImage'
 
@@ -62,20 +62,26 @@ class ViewEntry extends Component {
 
           <p>{entry.notes}</p>
 
-          <h2>Project: {project.name}</h2>
-          <h4>Location: </h4> <p>{project.location ? project.location : 'Not given'}</p>
-          {
-            project.description ? <div><h4>Description</h4><p>{project.description}</p></div> : null  
-          }
+          <h4>Project: {project.name}</h4>
 
-          <button onClick={this.toggleAddImg}>{!this.state.addImg ? 'Add An Image' : 'Hide Image Adder'}</button>
+          <h4>Entry Created: {entry.createdAt.slice(0,10)}</h4>
+          
           {
-            !this.state.addImg ? null : (
-              <AddImage
-                entryID={this.props.match.params.id}
-                entryReset={this.initialize}
-              />
-            )
+            this.props.userID === project.user ? (
+              <Link to={`/entries/${this.props.match.params.id}/editentry`}><button>Edit Entry</button></Link>
+            ) : null 
+          }
+          
+          {this.props.userID === project.user ? <div>
+            <button onClick={this.toggleAddImg}>{!this.state.addImg ? 'Add An Image' : 'Hide Image Adder'}</button>
+            {
+              !this.state.addImg ? null : (
+                <AddImage
+                  entryID={this.props.match.params.id}
+                  entryReset={this.initialize}
+                />
+              )
+            } </div> : null 
           }
 
           <ul>
