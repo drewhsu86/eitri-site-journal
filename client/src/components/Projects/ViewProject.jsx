@@ -36,9 +36,9 @@ class ViewProject extends Component {
         <div className="Page">
           <h1>Project Site: {project.name}</h1>
   
-          <h4>Location: </h4> <p>{project.location ? project.location : 'Not given'}</p>
+          <h4>Location: {project.location ? project.location : 'Not given'}</h4> 
           {
-            project.description ? <div><h4>Description</h4><p>{project.description}</p></div> : null  
+            project.description ? <div><h4>Description</h4><section>{project.description}</section></div> : null  
           }
 
           <Link to={`/users/${project.user}`}>

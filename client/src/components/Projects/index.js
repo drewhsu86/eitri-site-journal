@@ -59,7 +59,7 @@ class Index extends Component {
             return <li key={ind}><Link to={`/projects/${proj._id}`}>
               <div className="toProject">
                 <h3>Go to Project: </h3>
-                <p>{proj.name}</p>
+                <h2>{proj.name}</h2>
               </div>
             </Link></li>
             }) : <h3>You have no projects yet.</h3>

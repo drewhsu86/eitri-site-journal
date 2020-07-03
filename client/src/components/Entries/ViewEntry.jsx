@@ -63,7 +63,7 @@ class ViewEntry extends Component {
         <div className="Page">
           <h1>Entry Notes</h1>
 
-          <p>{entry.notes}</p>
+          <section>{entry.notes}</section>
 
           <h4>Project: {project.name}</h4>
 
