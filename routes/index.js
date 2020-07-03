@@ -4,7 +4,9 @@ const controllers = require('../controllers')
 const restrict = require("../helpers")
 
 // root route 
-router.get('/')
+router.get('/', (req, res) => {
+  res.json('This is root.')
+})
 
 // route to upload to imgur with proper body 
 // limit of 10mb image 
