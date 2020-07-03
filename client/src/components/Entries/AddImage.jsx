@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import FileBase64 from 'react-file-base64'
 import { addImage, imgurImage } from '../../services/apiCalls'
 
 const IMGUR_BUTTON = 'Upload Using Imgur Or Image URL'
