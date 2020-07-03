@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
+import eitriLogo from '../../images/eitriLogo.png'
+
 
 class Index extends Component {
   render() {
@@ -8,16 +10,17 @@ class Index extends Component {
     return (
       <nav>
         <div className="navTop">
-          <h1> Eitri Foundry - Site Journal </h1>
+          <img className="eitriLogo" src={eitriLogo} alt="Eitri Logo" /> <h1 className="navTitle"> Eitri Foundry - Site Journal </h1>
         </div>
-        <div className="navMed">
-          <Link to="/"><button>Home</button></Link>
-        </div>
+
         <div className="navBot">
-          {
+          <Link to="/"><button>Home</button></Link>
+          <span style={{display: 'flex', alignItems: 'center'}}>
+            {
             username ? `Welcome, ${username}!` : null
-          }
-          {!localStorage.getItem('token') ? <button onClick={() => this.props.history.push('/')}>Login</button> : <button onClick={this.props.logOut}>Logout</button>}
+            }
+            {!localStorage.getItem('token') ? <button onClick={() => this.props.history.push('/')}>Login</button> : <button onClick={this.props.logOut}>Logout</button>}
+          </span>
         </div>
       </nav>
     )

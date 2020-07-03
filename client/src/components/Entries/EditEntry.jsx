@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { getEntry, updateEntry, deleteEntry } from '../../services/apiCalls'
 
 const confirm = window.confirm 
@@ -86,16 +86,22 @@ class EditEntry extends Component {
   render() {
     return (
       <div className="Page">
+        <section>
         <h1>Edit the note for this entry</h1>
         <form className="UpdateForm" onSubmit={this.handleSubmit}>
           <label htmlFor="entryName">Entry Notes</label>
           <textarea value={this.state.inputNotes} onChange={e => this.handleChange(e, 'inputNotes')} name="entryName" />
 
-          <button>Edit Entry</button>
+            <button>Edit Entry</button>
+            <Link to={`/entries/${this.props.match.params.id}`}><button>Cancel</button></Link>
+            
         </form>
-
-        <h1> Delete this entry? </h1>
-        <button onClick={this.handleDelete}>Delete (PERMANENT)</button>
+        </section>
+        
+        <section>
+          <h1> Delete this entry? </h1>
+          <button className="deleteButton" onClick={this.handleDelete}>Delete (PERMANENT)</button>
+        </section>
       </div>
     )
   }

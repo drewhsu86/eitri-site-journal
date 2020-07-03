@@ -35,15 +35,33 @@ class Index extends Component {
     if (this.state.projects) {
       return (
         <div className="Page"> 
-          
           {
-            this.props.userID === this.props.match.params.id ? <h1><Link to="/addProject">Add A Project</Link></h1> : null 
-            }
+            this.props.userID === this.props.match.params.id ? <section>
+              <p>Welcome, {this.props.username}!</p>
+              <p>
+                Here, you can add project sites that you are working on. Then go to these project sites and add journal entries. You can even add images to your journal entries!
+              </p>
+            </section> : <section>
+                <p>Welcome to {this.state.user.username}'s projects list!</p>
+              <p>
+                Here, you can see which projects this user is currently writing entries for and view them in the list below.
+              </p>
+            </section>
+          }
+
+          {
+            this.props.userID === this.props.match.params.id ? <Link to="/addProject"><button>Add A Project</button></Link>: null 
+          }
           
-          <h1> List of Projects </h1>
           <ul>
+          <li className="listTitle">List Of {this.state.user.username}'s Project</li>
           { this.state.projects.length > 0 ? this.state.projects.map((proj, ind) => {
-            return <li key={ind}><Link to={`/projects/${proj._id}`}> Go to Project: {proj.name} </Link></li>
+            return <li key={ind}><Link to={`/projects/${proj._id}`}>
+              <div className="toProject">
+                <h3>Go to Project: </h3>
+                <p>{proj.name}</p>
+              </div>
+            </Link></li>
             }) : <h3>You have no projects yet.</h3>
             }
           </ul>

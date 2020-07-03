@@ -1,8 +1,236 @@
+body {
+  background-color: lightyellow;
+  font-family: sans-serif;
+}
+
+.Page {
+  padding: 30px;
+}
+
+label {
+  font-size: 20px;
+}
+
+input {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+textarea {
+  display: block;
+  min-height: 150px;
+  min-width: 50%;
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: rebeccapurple;
+}
+
+button {
+  background-color: transparent;
+  color: darkgreen;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  display: block;
+  border-radius: 5px;
+  margin: 20px 0;
+  padding: 5px 15px;
+}
+
+button:hover {
+  background-color: lightgreen;
+}
+
+section {
+  border: 1px solid darkgreen;
+  margin: 20px 0;
+  padding: 10px 20px;
+}
+
+.deleteButton {
+  background-color: darkred;
+  color: white;
+  border: 3px solid black; 
+}
+
+.deleteButton:hover {
+  background-color: red;
+}
+
 ul {
   list-style: none;
+  list-style-type: none;
+  border: 1px solid darkgreen;
+  padding: 0 20px;
+}
+
+li {
+  font-size: 20px;
+  margin: 40px 10px;
+}
+
+.listTitle {
+  background-color: darkgreen;
+  color: white;
+  font-weight: bold;
+  border: none;
+  margin: none;
+  padding: 15px 25px;
+}
+
+/* nav bar  */
+
+.navTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  background-image: url('./images/banner1.png');
+  background-size: cover;
+  width: 100%;
+  height: 100px;
+}
+
+.eitriLogo {
+  width: 158px;
+  height: 64px;
+  border-radius: 5px;
+  margin: 0 20px;
+  background-color: rgba(255,255,255,0.5);
+  box-shadow: 0 0 10px white;
+}
+
+.navTitle {
+  color: white;
+  font-size: 20px;
+  width: 140px;
+  margin: 0 20px;
+  text-shadow: 2px 2px 5px black;
+}
+
+.navBot {
+  display: flex;
+  justify-content: space-around;
+  font-size: 20px;
+}
+
+nav button {
+  font-size: 20px;
+  background-color: none;
+  color: darkgreen;
+  font-weight: bold;
+  border: 3px solid transparent;
+  border-radius: 0;
+  margin: 0 20px;
+  padding: 5px 15px;
+}
+
+nav button:hover {
+  background-color: transparent;
+  border: 3px solid darkgreen;
+}
+
+/* projects */
+
+li .toProject {
+  border: 1px solid darkgreen;
+  padding: 0 25px;
+}
+
+li .toProject:hover {
+  background-color: lightgreen;
+}
+
+li .toEntry {
+  border: 1px solid darkgreen;
+  padding: 15px 25px;
+}
+
+li .toEntry:hover {
+  background-color: lightgreen;
+}
+
+/* entries  */
+
+.imgGrid {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.imgGridItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  border: 1px solid darkgreen;
+  margin: 10px;
+  padding: 20px 10px;
+}
+
+.imgGridItem button {
+  background-color: lightgrey;
+  margin: 10px 0 0 0;
+}
+
+.imgGridItem button:hover {
+  background-color: darkgrey;
+}
+
+.imgGridItem a {
+  display: flex;
+  justify-content: center;
 }
 
 .ImagePreview {
+  display: block;
   max-height: 150px;
-  max-width: 50%;
+  max-width: 90%;
+  border-radius: 5px;
+}
+
+.ImagePreview:hover {
+  filter: brightness(0.5);
+}
+
+@media (min-width: 800px) {
+
+  /* nav bar  */
+
+  .navTitle {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: white;
+    font-size: 30px;
+    width: auto;
+    margin: 0;
+  }
+
+  /* entries */
+
+  .imgGrid {
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  /* entries */
+
+  .imgGrid {
+    grid-template-columns: auto auto auto auto;
+  }
 }

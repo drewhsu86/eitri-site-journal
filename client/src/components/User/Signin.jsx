@@ -60,7 +60,8 @@ export default class Signin extends Component {
   render() {
 
       return (
-        <div className="Signup">
+        <div className="Page">
+          <section>
           <form className="SignupForm" onSubmit={this.handleSubmit}>
             <h1>Log In With Your Account</h1>
             {this.state.errMsg ? <p className="error">{this.state.errMsg}</p> : null}
@@ -76,6 +77,7 @@ export default class Signin extends Component {
           <p>
             <Link to="/signup">Don't have an account? Register here</Link>
           </p>
+          </section>
         </div>
       )
     

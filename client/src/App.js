@@ -80,7 +80,7 @@ class App extends Component {
         </Route>
 
         <Route path="/users/:id">
-          <Projects userID={this.state.userID} />
+          <Projects userID={this.state.userID} username={this.state.username} />
         </Route>
 
         <Route path="/addproject">

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { getProject, updateProject, deleteProject } from '../../services/apiCalls'
 
 const confirm = window.confirm
@@ -91,6 +91,8 @@ class EditProject extends Component {
   render() {
     return (
       <div className="Page">
+        <section>
+        <h1> Edit Project Info </h1>
         <form className="UpdateForm" onSubmit={this.handleSubmit}>
           <label htmlFor="projectName">Project Name</label>
           <input type="text" value={this.state.inputName} onChange={e => this.handleChange(e, 'inputName')} name="projectName" />
@@ -99,13 +101,18 @@ class EditProject extends Component {
           <input type="text" value={this.state.inputLocation} onChange={e => this.handleChange(e, 'inputLocation')} name="location" />
 
           <label htmlFor="description">Description</label>
-          <input type="text" value={this.state.inputDescription} onChange={e => this.handleChange(e, 'inputDescription')} name="description" />
+          <textarea value={this.state.inputDescription} onChange={e => this.handleChange(e, 'inputDescription')} name="description" />
 
-          <button>Submit</button>
+            <button>Submit</button>
+            <Link to={`/projects/${this.props.match.params.id}`}><button>Cancel</button></Link>
+
         </form>
-
-        <h1> Delete this entry? </h1>
-        <button onClick={this.handleDelete}>Delete (PERMANENT)</button>
+        </section>
+          
+        <section>
+          <h1> Delete this project?</h1>
+          <button className="deleteButton" onClick={this.handleDelete}>Delete (PERMANENT)</button>
+        </section>
       </div>
     )
   }

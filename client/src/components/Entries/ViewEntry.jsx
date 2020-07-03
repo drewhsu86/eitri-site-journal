@@ -38,11 +38,14 @@ class ViewEntry extends Component {
   }
 
   handleRemoveImg = async (id, ind) => {
-    try {
-      await removeImage(id, ind)
-      await this.initialize()
-    } catch (error) {
-      console.log(error.message)
+    const removeConfirm = window.confirm('Really delete image? WARNING: PERMANENT!!!')
+    if (removeConfirm) {
+      try {
+        await removeImage(id, ind)
+        await this.initialize()
+      } catch (error) {
+        console.log(error.message)
+      }
     }
   }
 
@@ -66,6 +69,10 @@ class ViewEntry extends Component {
 
           <h4>Entry Created: {entry.createdAt.slice(0,10)}</h4>
           
+          <Link to={`/projects/${entry.project._id}`}>
+            <button>Back To Project</button>
+          </Link>
+
           {
             this.props.userID === project.user ? (
               <Link to={`/entries/${this.props.match.params.id}/editentry`}><button>Edit Entry</button></Link>
@@ -84,11 +91,11 @@ class ViewEntry extends Component {
             } </div> : null 
           }
 
-          <ul>
+          <div className="imgGrid">
             {
               entry.images.map((image, ind) => {
-                return (<li key={ind}>
-                  <div className="ImageHolder">
+                return (<div className="imgGridItem" key={ind}>
+                  
                     <a href={image} target="_blank">
                     <img className="ImagePreview"
                       src={image} alt={`This is a link to an image.`} />
@@ -99,11 +106,11 @@ class ViewEntry extends Component {
                     >
                       Delete Image?
                     </button>
-                  </div>
-                </li>)
+                  
+                </div>)
               })
             }
-          </ul>
+          </div>
         </div>
       )
     }

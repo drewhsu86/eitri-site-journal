@@ -34,14 +34,18 @@ class ViewProject extends Component {
     } else {
       return (
         <div className="Page">
-          <h1>Project Site</h1>
-          <h2>{project.name}</h2>
+          <h1>Project Site: {project.name}</h1>
+  
           <h4>Location: </h4> <p>{project.location ? project.location : 'Not given'}</p>
           {
             project.description ? <div><h4>Description</h4><p>{project.description}</p></div> : null  
           }
 
-{
+          <Link to={`/users/${project.user}`}>
+            <button>Back To Projects List</button>
+          </Link>
+
+          {
           this.props.userID === project.user ? (
             <Link to={`/projects/${this.props.match.params.id}/editproject`}><button>Edit Project Info</button></Link>
             ) : null 
@@ -50,10 +54,13 @@ class ViewProject extends Component {
           { this.props.userID === project.user ? <Link to={`/projects/${this.props.match.params.id}/addentry`}><button>Create An Entry</button></Link> : null }
 
           <ul>
+            <li className="listTitle">Entries For {project.name} Site</li>
             {
               project.entries.map((entry, ind) => {
                 return (<li key={ind}>
-                  <Link to={`/entries/${entry._id}`}>{entry.notes}</Link>
+                  <Link to={`/entries/${entry._id}`}>
+                    <div className="toEntry">{entry.notes}</div>
+                  </Link>
                 </li>)
               })
             }
