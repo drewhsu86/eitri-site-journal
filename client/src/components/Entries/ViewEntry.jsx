@@ -99,13 +99,15 @@ class ViewEntry extends Component {
                     <a href={image} target="_blank">
                     <img className="ImagePreview"
                       src={image} alt={`This is a link to an image.`} />
-                    </a>
+                  </a>
+                  {this.props.userID === project.user ? 
                     <button
                       className="ImageRemoveButton"
                       onClick={() => this.handleRemoveImg(this.props.match.params.id, ind)}
                     >
                       Delete Image?
-                    </button>
+                    </button> : null 
+                  }
                   
                 </div>)
               })
