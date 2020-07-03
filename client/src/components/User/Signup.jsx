@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { signup } from '../../services/apiUsers'
 
-export default class Signup extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props)
 
@@ -40,10 +40,7 @@ export default class Signup extends Component {
         // if token is successfully received, set the user data 
         await this.props.setUser()
 
-        this.setState({
-          username: '',
-          password: ''
-        })
+        this.props.history.push('/')
       } catch (error) {
         console.log(error.message)
         this.setState({
@@ -63,7 +60,8 @@ export default class Signup extends Component {
         <div className="Page">
           <section>
           <form className="SignupForm" onSubmit={this.handleSubmit}>
-            <h1>Register An Account</h1>
+              <h1>Register An Account</h1>
+              <h4> Passwords need to be at least 6 characters long! </h4>
             {this.state.errMsg ? <p className="error">{this.state.errMsg}</p> : null}
 
             <label htmlFor="username">Username</label>
@@ -83,3 +81,5 @@ export default class Signup extends Component {
     
   }
 }
+
+export default withRouter(Signup)

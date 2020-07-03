@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { signin } from '../../services/apiUsers'
 
-export default class Signin extends Component {
+class Signin extends Component {
   constructor(props) {
     super(props)
 
@@ -40,10 +40,7 @@ export default class Signin extends Component {
         // if token is successfully received, set the user data 
         await this.props.setUser()
 
-        this.setState({
-          username: '',
-          password: ''
-        })
+        this.props.history.push('/')
       } catch (error) {
         console.log(error.message)
         this.setState({
@@ -77,9 +74,11 @@ export default class Signin extends Component {
           <p>
             <Link to="/signup">Don't have an account? Register here</Link>
           </p>
-          </section>
+        </section>
         </div>
       )
     
   }
 }
+
+export default withRouter(Signin)

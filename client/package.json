@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && cd build && cp index.html 200.html && surge && cd .."
+    "deploy": "npm run build && cd build && cp index.html 200.html && echo eitri-site-journal.surge.sh > CNAME && surge && cd .."
   },
   "eslintConfig": {
     "extends": "react-app"

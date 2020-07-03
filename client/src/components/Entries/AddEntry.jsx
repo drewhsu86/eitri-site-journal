@@ -46,13 +46,15 @@ class AddEntry extends Component {
   render() {
     return (
       <div className="Page">
-        <h1>Write a note for this entry</h1>
-        <form className="UpdateForm" onSubmit={this.handleSubmit}>
+        <section>
+          <h1>Write a note for this entry</h1>
+          <form className="UpdateForm" onSubmit={this.handleSubmit}>
           <label htmlFor="entryName">Entry Notes</label>
           <textarea value={this.state.inputNotes} onChange={e => this.handleChange(e, 'inputNotes')} name="entryName" />
 
           <button>Create Entry</button>
-        </form>
+          </form>
+        </section>
       </div>
     )
   }

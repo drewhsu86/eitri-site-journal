@@ -51,6 +51,7 @@ class AddProject extends Component {
   render() {
     return (
       <div className="Page">
+        <section>
         <form className="UpdateForm" onSubmit={this.handleSubmit}>
           <label htmlFor="projectName">Project Name</label>
           <input type="text" value={this.state.inputName} onChange={e => this.handleChange(e, 'inputName')} name="projectName" />
@@ -59,10 +60,11 @@ class AddProject extends Component {
           <input type="text" value={this.state.inputLocation} onChange={e => this.handleChange(e, 'inputLocation')} name="location" />
 
           <label htmlFor="description">Description</label>
-          <input type="text" value={this.state.inputDescription} onChange={e => this.handleChange(e, 'inputDescription')} name="description" />
+          <textarea value={this.state.inputDescription} onChange={e => this.handleChange(e, 'inputDescription')} name="description" />
 
           <button>Submit</button>
         </form>
+        </section>
       </div>
     )
   }
