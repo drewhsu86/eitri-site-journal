@@ -85,6 +85,7 @@ export default class AddImage extends Component {
 
       console.log(response) 
 
+      this.props.entryReset()
     } catch (error) {
         console.log(error.message)
         this.setState({
