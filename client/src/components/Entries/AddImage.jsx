@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { addImage, imgurImage } from '../../services/apiCalls'
+import ToggleSwitch from './ToggleSwitch'
 
 const IMGUR_BUTTON = 'Upload Using Imgur Or Image URL'
 const IMGUR_LOADING = 'Uploading...'
@@ -12,7 +13,8 @@ export default class AddImage extends Component {
       inputURL: '',
       errMsg: '',
       imgurBtn: IMGUR_BUTTON,
-      camFile: null 
+      camFile: null,
+      capture: false 
     }
   }
 
@@ -20,6 +22,13 @@ export default class AddImage extends Component {
     // sets e.target.value to whatever state is named
     this.setState({
       [stateName]: e.target.value 
+    })
+  }
+
+  handleToggleCapture = () => {
+    const capture = !this.state.capture 
+    this.setState({
+      capture 
     })
   }
 
@@ -39,7 +48,6 @@ export default class AddImage extends Component {
         imgurBtn: IMGUR_LOADING 
       })
       try {
-
         const file = e.target.files[0]
         const fileBase64 = await this.toBase64(file)
 
@@ -86,8 +94,13 @@ export default class AddImage extends Component {
   }
 
   render() {
+    let captureOption = {}
+    if (this.state.capture) {
+      captureOption.capture = "camera"
+    }
     return (
       <div className="AddImage">
+        <section>
         <h3>{this.state.imgurBtn}</h3>
 
         {
@@ -95,8 +108,15 @@ export default class AddImage extends Component {
         }
 
         <label htmlFor="inputFile">From Files Or Camera</label>
-        <input type="file" accept="image/*" capture="camera" onChange={this.handleImgur} name="inputFile" />
+        <div>
+          <ToggleSwitch isOn={this.state.capture} onClick={this.handleToggleCapture} /> &nbsp;
+          {this.state.capture ? 'From Camera' : 'From File'}
+        </div>
+         
+        <br/>
+        <input type="file" accept="image/*" {...captureOption} onChange={this.handleImgur} name="inputFile" />
 
+        <br/>
         <label htmlFor="inputURL">Enter Or Edit Image URL</label>
         <input 
           type="text"
@@ -107,6 +127,7 @@ export default class AddImage extends Component {
         {
           this.state.inputURL ? <button onClick={this.handleAddImage}>Add Image URL To Entry</button> : null 
         }
+        </section>
       </div>
     )
   }
