@@ -40,4 +40,25 @@ The frontend is built using React, Axios and React-Router-Dom. Since this is a R
   * DELETE '/entries/:id/image/:imgInd' - delete image url of index imgInd within the entry defined by id 
   * POST '/imgur/upload' - send base64 and other image data in body, the Express server sends a request to imgur API and creates a new image upload on imgur, then returns the link of the uploaded image in the response 
 
+## Frontend Component Tree 
+
+Note: This is not the folder structure of the React files, but the parent/child relationships of the different components. It was easiest to have all main components be a child of App.js so they could be routed to directly. Only the ViewEntry component has major child components: AddImage and ToggleSwitch.
+
+```
+index.js
+  |-- App.js
+      |-- /Nav/index.js
+      |-- Signup.jsx
+      |-- Signin.jsx
+      |-- /Project/index.js
+      |-- ViewProject.jsx
+      |-- AddProject.jsx
+      |-- EditProject.jsx
+      |-- ViewEntry.jsx
+          |-- AddImage.jsx
+          |-- ToggleSwitch.jsx
+      |-- AddEntry.jsx
+      |-- EditEntry.jsx
+     
+```
 
